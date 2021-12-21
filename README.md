@@ -1,5 +1,5 @@
 ### Design Database
-```json
+```
 Schema RT
 {
     _id : "ObjectId('RT1')",
