@@ -51,7 +51,20 @@ Schema Laporan
     _id : "ObjectId('Laporan1')",
     idAnggota : "ObjectId('Anggota1')",
     tanggal : "12-20-2021",
-    laporan : [ pertanyaan1 , pertanyaan2, dst]
+    perjalananDomestik: "ya",
+    turisAsing: "ya",
+    kontakPositif: "ya",
+    demam: "ya",
+    batuk: "ya",
+    nyeriTenggorokan: "ya",
+    sesakNafas: "ya",
+    batukPilek: "ya",
+    diabetes: "ya",
+    hipertensi: "ya",
+    jantung: "ya",
+    ginjal: "ya",
+    asma: "ya",
+    catatanTambahan: "lalalalalalala"
 }
 ```
 
