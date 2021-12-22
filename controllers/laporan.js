@@ -37,37 +37,79 @@ exports.getLaporan = async (req, res, next) =>{
 
 exports.postLaporan = async (req, res, next) => {
     try {
-        const {tanggal, anggotaId, keluargaId, tokenRT,perjalananDomestik, turisAsing, kontakPositif} = req.body
+        const role = req.user.role
+        const email = req.user.email
+
+        const {tanggal, anggotaId, perjalananDomestik, turisAsing, kontakPositif} = req.body
         const {demam, batuk, nyeriTenggorokan, sesakNafas, batukPilek, diabetes} = req.body
         const {hipertensi, jantung, ginjal, asma, catatanTambahan} = req.body
 
-        const newLaporan  = Laporan({
-            tanggal: tanggal,
-            anggotaId : anggotaId,
-            keluargaId : keluargaId,
-            tokenRT : tokenRT,
-            perjalananDomestik: perjalananDomestik,
-            turisAsing: turisAsing,
-            kontakPositif: kontakPositif,
-            demam: demam,
-            batuk: batuk,
-            nyeriTenggorokan: nyeriTenggorokan,
-            sesakNafas: sesakNafas,
-            batukPilek: batukPilek, 
-            diabetes: diabetes,
-            hipertensi: hipertensi,
-            jantung: jantung,
-            ginjal: ginjal,
-            asma: asma,
-            catatanTambahan: catatanTambahan,
-        })
+        if(role === "Keluarga"){
+            const keluarga = await Keluarga.findOne({ email: email });
 
-        await newLaporan.save()
+            const keluargaId = keluarga._id;
+            const tokenRT = keluarga.tokenRT;
 
-        res.status(201).json({ 
-            message : "Berhasil Menambahkan Laporan",
-            laporan : newLaporan
-        })
+            const newLaporan  = Laporan({
+                tanggal: tanggal,
+                anggotaId : anggotaId,
+                keluargaId : keluargaId,
+                tokenRT : tokenRT,
+                perjalananDomestik: perjalananDomestik,
+                turisAsing: turisAsing,
+                kontakPositif: kontakPositif,
+                demam: demam,
+                batuk: batuk,
+                nyeriTenggorokan: nyeriTenggorokan,
+                sesakNafas: sesakNafas,
+                batukPilek: batukPilek, 
+                diabetes: diabetes,
+                hipertensi: hipertensi,
+                jantung: jantung,
+                ginjal: ginjal,
+                asma: asma,
+                catatanTambahan: catatanTambahan,
+            })
+    
+            await newLaporan.save()
+    
+            res.status(201).json({ 
+                message : "Berhasil Menambahkan Laporan",
+                laporan : newLaporan
+            })
+        }else{
+            const rt = await Rt.findOne({ email: email });
+            const rtId = rt._id;
+
+            const newLaporan  = Laporan({
+                tanggal: tanggal,
+                anggotaId : anggotaId,
+                keluargaId : rtId,
+                tokenRT : rtId,
+                perjalananDomestik: perjalananDomestik,
+                turisAsing: turisAsing,
+                kontakPositif: kontakPositif,
+                demam: demam,
+                batuk: batuk,
+                nyeriTenggorokan: nyeriTenggorokan,
+                sesakNafas: sesakNafas,
+                batukPilek: batukPilek, 
+                diabetes: diabetes,
+                hipertensi: hipertensi,
+                jantung: jantung,
+                ginjal: ginjal,
+                asma: asma,
+                catatanTambahan: catatanTambahan,
+            })
+    
+            await newLaporan.save()
+    
+            res.status(201).json({ 
+                message : "Berhasil Menambahkan Laporan",
+                laporan : newLaporan
+            })
+        }
+
 
     } catch (error) {
         errorHandling(error);
