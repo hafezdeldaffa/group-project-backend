@@ -1,5 +1,5 @@
 ### Design Database
-```
+```bash
 Schema RT
 {
     _id : "ObjectId('RT1')",
