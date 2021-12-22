@@ -4,6 +4,7 @@
 
 const AnggotaKeluarga = require('../models/anggotaKeluarga');
 const Keluarga = require('../models/keluarga');
+const Rt = require('../models/rt');
 const { validationResult } = require('express-validator');
 const { errorHandling } = require('./errorHandling');
 
@@ -17,36 +18,61 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
       throw err;
     }
 
-    /* Get data from request body */
-    const { nama, role, statusCovid } = req.body;
-
     /* Get data from jwt */
-    const { email } = req.user;
+    const { email, role } = req.user;
 
-    /* Find data keluarga by email */
-    const keluarga = await Keluarga.findOne({ email: email });
+    if (role === 'Keluarga') {
+      /* Get data from request body */
+      const { nama, role, statusCovid } = req.body;
 
-    /* Get id and tokenRT from keluarga  */
-    const keluargaId = keluarga._id;
-    const tokenRT = keluarga.tokenRT;
+      /* Find data keluarga by email */
+      const keluarga = await Keluarga.findOne({ email: email });
 
-    /* Create new Anggota Keluarga */
-    const newAnggota = new AnggotaKeluarga({
-      nama: nama,
-      role: role,
-      statusCovid: statusCovid,
-      tokenRT: tokenRT,
-      keluargaId: keluargaId,
-    });
+      /* Get id and tokenRT from keluarga  */
+      const keluargaId = keluarga._id;
+      const tokenRT = keluarga.tokenRT;
 
-    /* Save to db */
-    const anggota = await newAnggota.save();
+      /* Create new Anggota Keluarga */
+      const newAnggota = new AnggotaKeluarga({
+        nama: nama,
+        role: role,
+        statusCovid: statusCovid,
+        tokenRT: tokenRT,
+        keluargaId: keluargaId,
+      });
 
-    /* Send response */
-    res.status(201).json({
-      message: 'Anggota Keluarga Berhasil Dibuat',
-      anggotaKeluarga: anggota,
-    });
+      /* Save to db */
+      const anggota = await newAnggota.save();
+
+      /* Send response */
+      res.status(201).json({
+        message: 'Anggota Keluarga Berhasil Dibuat',
+        anggotaKeluarga: anggota,
+      });
+    } else {
+      /* Get data from request body */
+      const { nama, role, statusCovid } = req.body;
+
+      const rt = await Rt.findOne({ email: email });
+
+      const rtId = rt._id;
+
+      const newAnggota = new AnggotaKeluarga({
+        nama: nama,
+        role: role,
+        statusCovid: statusCovid,
+        tokenRT: rtId,
+        keluargaId: rtId,
+      });
+
+      const anggota = await newAnggota.save();
+
+      /* Send response */
+      res.status(201).json({
+        message: 'Anggota Keluarga RT Berhasil Dibuat',
+        anggotaKeluarga: anggota,
+      });
+    }
   } catch (error) {
     /* Handling Errors */
     errorHandling(error);
@@ -57,28 +83,52 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
 exports.getAnggotaKeluarga = async (req, res, next) => {
   try {
     /* Get data from jwt */
-    const { email } = req.user;
+    const { email, role } = req.user;
 
-    /* Find data keluarga by email */
-    const keluarga = await Keluarga.findOne({ email: email });
+    if (role === 'Keluarga') {
+      /* Find data keluarga by email */
+      const keluarga = await Keluarga.findOne({ email: email });
 
-    /* Get id from keluarga  */
-    const keluargaId = keluarga._id;
+      /* Get id from keluarga  */
+      const keluargaId = keluarga._id;
 
-    /* Find data keluarga by keluargaId */
-    const anggotaKeluarga = await AnggotaKeluarga.find({
-      keluargaId: keluargaId,
-    });
-
-    if (anggotaKeluarga) {
-      /* Send response */
-      res.status(200).json({
-        message: 'Anggota Keluarga Found',
-        anggotaKeluarga: anggotaKeluarga,
+      /* Find data keluarga by keluargaId */
+      const anggotaKeluarga = await AnggotaKeluarga.find({
+        keluargaId: keluargaId,
       });
+
+      if (anggotaKeluarga.length) {
+        /* Send response */
+        res.status(200).json({
+          message: 'Anggota Keluarga Found',
+          anggotaKeluarga: anggotaKeluarga,
+        });
+      } else {
+        /* Send response */
+        res.status(404).json({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
     } else {
-      /* Send response */
-      res.status(404).message({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      /* Find data keluarga by email */
+      const rt = await Rt.findOne({ email: email });
+
+      /* Get id from keluarga  */
+      const rtId = rt._id;
+
+      /* Find data keluarga by keluargaId */
+      const anggotaKeluarga = await AnggotaKeluarga.find({
+        keluargaId: rtId,
+      });
+
+      if (anggotaKeluarga.length) {
+        /* Send response */
+        res.status(200).json({
+          message: 'Anggota Keluarga Found',
+          anggotaKeluarga: anggotaKeluarga,
+        });
+      } else {
+        /* Send response */
+        res.status(404).json({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
     }
   } catch (error) {
     /* Handling Errors */
