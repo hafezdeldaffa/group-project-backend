@@ -208,3 +208,69 @@ exports.deleteAnggotaKeluarga = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getStatusCovid = async (req, res, next) => {
+  try {
+    const { email, role } = req.user;
+
+    if (role === 'Keluarga') {
+      const keluarga = await Keluarga.findOne({ email: email });
+      const keluargaId = keluarga._id;
+      const tokenRT = keluarga.tokenRT;
+
+      const anggota = await AnggotaKeluarga.find({
+        keluargaId: keluargaId,
+        tokenRT: tokenRT,
+      });
+
+      const findAnggota = anggota.map(
+        (element) =>
+          new AnggotaKeluarga({
+            nama: element.nama,
+            role: element.role,
+            statusCovid: element.statusCovid,
+            createdAt: element.createdAt,
+          })
+      );
+
+      if (anggota.length) {
+        res
+          .status(200)
+          .json({ message: 'Anggota Keluarga Found', anggota: findAnggota });
+      } else {
+        res
+          .status(404)
+          .message({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
+    } else {
+      const rt = await Rt.findOne({ email: email });
+      const id = rt._id;
+
+      const anggota = await AnggotaKeluarga.find({
+        keluargaId: id,
+        tokenRT: id,
+      });
+
+      const findAnggota = anggota.map(
+        (element) =>
+          new AnggotaKeluarga({
+            nama: element.nama,
+            role: element.role,
+            statusCovid: element.statusCovid,
+            createdAt: element.createdAt,
+          })
+      );
+
+      if (anggota.length) {
+        res
+          .status(200)
+          .json({ message: 'Anggota Keluarga Found', anggota: findAnggota });
+      } else {
+        res.status(404).json({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
+    }
+  } catch (error) {
+    errorHandling(error);
+    next(error);
+  }
+};
