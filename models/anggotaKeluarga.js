@@ -15,8 +15,13 @@ const anggotaKeluargaSchema = new Schema(
       type: String,
       required: true,
     },
-    tokenRT: {
+    statusCovid: {
       type: String,
+      required: true,
+    },
+    tokenRT: {
+      type: Schema.Types.ObjectId,
+      ref: 'Keluarga',
       required: true,
     },
     keluargaId: {

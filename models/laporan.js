@@ -16,6 +16,11 @@ const LaporanSchema = new Schema(
         ref: 'AnggotaKeluarga',
         required: true,
     },
+    keluargaId:{
+        type: Schema.Types.ObjectId,
+        ref: 'Keluarga',
+        required: true,
+    },
     perjalananDomestik:{
         type: String,
         required: true,
