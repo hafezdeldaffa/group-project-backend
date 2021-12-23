@@ -10,8 +10,7 @@ exports.getWargaRT = async (req, res, next) =>{
         if(role === "RT"){
             const findRT = await RT.findOne({email: email})
             const findWarga = await Keluarga.find({tokenRT : findRT._id})
-
-            console.log(findWarga)
+            
             res.status(200).json({
                 message: "Berhasil Mendapatkan Data Warga di RT",
                 WargaRT : findWarga
