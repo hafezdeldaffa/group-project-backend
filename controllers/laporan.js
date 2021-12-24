@@ -117,6 +117,34 @@ exports.postLaporan = async (req, res, next) => {
     }
 }
 
+exports.getLaporanById = async (req,res,next) =>{
+    const role = req.user.role
+    const email = req.user.email
+    const id = req.params.id
+    try {
+        if(role === "Keluarga"){
+            const findKeluarga = await Keluarga.findOne({email: email})
+            const findLaporan = await Laporan.findOne({_id: id, keluargaId: findKeluarga._id})
+            res.status(201).json({ 
+                message : "Berhasil Mengambil Data Laporan anggota Keluarga By ID",
+                laporan : findLaporan
+            })
+        }else{
+            const findRT = await Rt.findOne({email: email})
+
+            const findLaporan = await Laporan.findOne({_id: id, tokenRT:  findRT._id})
+            res.status(201).json({ 
+                message : "Berhasil Mengambil Data Laporan warga RT By ID",
+                laporan : findLaporan
+            })
+        }
+
+    } catch (error) {
+        errorHandling(error);
+        next(error);
+    }
+}
+
 exports.deleteLaporan = async (req,res, next) =>{
     
     try {
