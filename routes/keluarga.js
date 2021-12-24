@@ -4,6 +4,7 @@ const {
   getAnggotaKeluarga,
   putAnggotaKeluarga,
   deleteAnggotaKeluarga,
+  getStatusCovid,
 } = require('../controllers/anggotaKeluarga');
 const router = express.Router();
 const { body } = require('express-validator');
@@ -34,5 +35,7 @@ router.put(
 );
 
 router.delete('/anggota-keluarga/:id', authenticateJWT, deleteAnggotaKeluarga);
+
+router.get('/anggota-keluarga/status-covid', authenticateJWT, getStatusCovid);
 
 module.exports = router;
