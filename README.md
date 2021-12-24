@@ -68,6 +68,8 @@ Schema Laporan
 }
 ```
 
+### Postman Documentation
+https://documenter.getpostman.com/view/11143202/UVRDHmQC
 
 ### Installation
 
