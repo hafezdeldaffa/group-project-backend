@@ -35,8 +35,29 @@ const vaksinSchema = new Schema(
     dosis4: {
       type: String,
     },
+    keluargaId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Keluarga',
+    },
+    anggotaKeluargaId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'AnggotaKeluarga',
+    },
+    tokenRT: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Rt',
+    },
+    nama: {
+      type: String,
+    },
+    role: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = moongoose.model('Vaksin', vaksinSchema);
+module.exports = mongoose.model('Vaksin', vaksinSchema);

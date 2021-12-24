@@ -7,6 +7,7 @@ const Keluarga = require('../models/keluarga');
 const Rt = require('../models/rt');
 const { validationResult } = require('express-validator');
 const { errorHandling } = require('./errorHandling');
+const Vaksin = require('../models/vaksin');
 
 exports.postAnggotaKeluarga = async (req, res, next) => {
   try {
@@ -23,7 +24,20 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
 
     if (role === 'Keluarga') {
       /* Get data from request body */
-      const { nama, role, statusCovid } = req.body;
+      const {
+        nama,
+        role,
+        statusCovid,
+        jenis,
+        tanggalDosis1,
+        tanggalDosis2,
+        tanggalDosis3,
+        tanggalDosis4,
+        dosis1,
+        dosis2,
+        dosis3,
+        dosis4,
+      } = req.body;
 
       /* Find data keluarga by email */
       const keluarga = await Keluarga.findOne({ email: email });
@@ -44,6 +58,25 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
       /* Save to db */
       const anggota = await newAnggota.save();
 
+      const newVaksin = new Vaksin({
+        tanggalDosis1: tanggalDosis1,
+        tanggalDosis2: tanggalDosis2,
+        tanggalDosis3: tanggalDosis3,
+        tanggalDosis4: tanggalDosis4,
+        jenis: jenis,
+        dosis1: dosis1,
+        dosis2: dosis2,
+        dosis3: dosis3,
+        dosis4: dosis4,
+        keluargaId: keluargaId,
+        anggotaKeluargaId: anggota._id,
+        tokenRT: tokenRT,
+        nama: nama,
+        role: role,
+      });
+
+      await newVaksin.save();
+
       /* Send response */
       res.status(201).json({
         message: 'Anggota Keluarga Berhasil Dibuat',
@@ -51,7 +84,20 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
       });
     } else {
       /* Get data from request body */
-      const { nama, role, statusCovid } = req.body;
+      const {
+        nama,
+        role,
+        statusCovid,
+        jenis,
+        tanggalDosis1,
+        tanggalDosis2,
+        tanggalDosis3,
+        tanggalDosis4,
+        dosis1,
+        dosis2,
+        dosis3,
+        dosis4,
+      } = req.body;
 
       const rt = await Rt.findOne({ email: email });
 
@@ -66,6 +112,25 @@ exports.postAnggotaKeluarga = async (req, res, next) => {
       });
 
       const anggota = await newAnggota.save();
+
+      const newVaksin = new Vaksin({
+        tanggalDosis1: tanggalDosis1,
+        tanggalDosis2: tanggalDosis2,
+        tanggalDosis3: tanggalDosis3,
+        tanggalDosis4: tanggalDosis4,
+        jenis: jenis,
+        dosis1: dosis1,
+        dosis2: dosis2,
+        dosis3: dosis3,
+        dosis4: dosis4,
+        keluargaId: rtId,
+        anggotaKeluargaId: anggota._id,
+        tokenRT: rtId,
+        nama: nama,
+        role: role,
+      });
+
+      await newVaksin.save();
 
       /* Send response */
       res.status(201).json({

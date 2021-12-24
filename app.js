@@ -5,6 +5,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const keluargaRouter = require('./routes/keluarga');
+const vaksinRouter = require('./routes/vaksin');
 
 const app = express();
 
@@ -36,5 +37,6 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use(keluargaRouter);
+app.use(vaksinRouter);
 
 module.exports = app;
