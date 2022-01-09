@@ -15,12 +15,12 @@ exports.getVaksin = async (req, res, next) => {
       const keluarga = await Keluarga.findOne({ email: email });
       const keluargaId = keluarga._id;
 
-      const dataVaksin = await Vaksin.find({ keluargaId: keluargaId });
+      const vaksinKeluarga = await Vaksin.find({ keluargaId: keluargaId });
 
       if (dataVaksin.length) {
         res.status(200).json({
           message: 'Data Vaksin Keluarga Found',
-          dataVaksin: dataVaksin,
+          vaksinKeluarga: vaksinKeluarga,
         });
       } else {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
@@ -62,6 +62,15 @@ exports.getVaksinRT = async (req, res, next) => {
       } else {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
       }
+    } else {
+      const keluarga = await Keluarga.findOne({ email: email });
+      const tokenRT = keluarga.tokenRT;
+
+      const vaksin = await Vaksin.find({ tokenRT: tokenRT });
+
+      res
+        .status(200)
+        .json({ message: 'Data Vaksin Found', dataVaksin: vaksin });
     }
   } catch (error) {
     errorHandling(error);

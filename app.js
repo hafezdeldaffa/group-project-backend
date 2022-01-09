@@ -6,8 +6,8 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const laporanRouter = require('./routes/laporan');
 const keluargaRouter = require('./routes/keluarga');
-const dataWargaRT = require('./routes/dataWargaRT')
-const dataPositif = require('./routes/dataPositif')
+const dataWargaRT = require('./routes/dataWargaRT');
+const dataPositif = require('./routes/dataPositif');
 const vaksinRouter = require('./routes/vaksin');
 
 const app = express();
@@ -41,8 +41,8 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use(keluargaRouter);
 app.use(laporanRouter);
-app.use(dataWargaRT)
-app.use(dataPositif)
+app.use(dataWargaRT);
+app.use(dataPositif);
 app.use(vaksinRouter);
 
 module.exports = app;

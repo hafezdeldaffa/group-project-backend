@@ -153,6 +153,7 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
     if (role === 'Keluarga') {
       /* Find data keluarga by email */
       const keluarga = await Keluarga.findOne({ email: email });
+      const tokenRT = keluarga.tokenRT;
 
       /* Get id from keluarga  */
       const keluargaId = keluarga._id;
@@ -162,11 +163,14 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
         keluargaId: keluargaId,
       });
 
+      const anggotaRT = await AnggotaKeluarga.find({ tokenRT: tokenRT });
+
       if (anggotaKeluarga.length) {
         /* Send response */
         res.status(200).json({
           message: 'Anggota Keluarga Found',
           anggotaKeluarga: anggotaKeluarga,
+          anggotaRT: anggotaRT,
         });
       } else {
         /* Send response */
@@ -184,11 +188,14 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
         keluargaId: rtId,
       });
 
+      const anggotaRT = await AnggotaKeluarga.find({ tokenRT: rtId });
+
       if (anggotaKeluarga.length) {
         /* Send response */
         res.status(200).json({
           message: 'Anggota Keluarga Found',
           anggotaKeluarga: anggotaKeluarga,
+          anggotaRT: anggotaRT,
         });
       } else {
         /* Send response */
