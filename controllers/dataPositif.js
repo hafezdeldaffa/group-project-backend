@@ -25,12 +25,15 @@ exports.getDataPositif = async (req, res, next) => {
         dataRT: findPositif,
       });
     } else {
-      const findKeluarga = await Keluarga.find({ email: email });
+      const findKeluarga = await Keluarga.findOne({ email: email });
+      const keluargaId = findKeluarga._id;
       const tokenRT = findKeluarga.tokenRT;
+
       const anggotaPositif = await AnggotaKeluarga.find({
-        keluargaId: findKeluarga._id,
+        keluargaId: keluargaId,
         statusCovid: 'Positif',
       });
+
       const rtPositif = await AnggotaKeluarga.find({
         statusCovid: 'Positif',
         tokenRT: tokenRT,
