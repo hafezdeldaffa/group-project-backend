@@ -83,7 +83,6 @@ exports.getVaksinRT = async (req, res, next) => {
       const rtId = rt._id;
 
       const vaksin = await Vaksin.find({ tokenRT: rtId });
-      console.log(vaksin)
 
       if (vaksin.length) {
         res
