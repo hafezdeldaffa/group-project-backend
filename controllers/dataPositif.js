@@ -50,3 +50,24 @@ exports.getDataPositif = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getDataPositifByID = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const dataPositif = await AnggotaKeluarga.findOne({ _id: id, statusCovid: 'Positif',})
+
+    if (dataPositif) {
+      res.status(201).json({
+        message: "Berhasil Mengambil Data Positif By ID Anggota",
+        dataPositif: dataPositif,
+      })
+    } else {
+      res.status(404).json({ message: 'Data Positif By Id tidak ditemukan' });
+    }
+
+  } catch (error) {
+    errorHandling(error);
+    next(error);
+  }
+}

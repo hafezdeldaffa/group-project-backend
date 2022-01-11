@@ -401,14 +401,28 @@ exports.getKepalaKeluarga = async (req, res, next) => {
 
     if (role === 'Keluarga') {
       const keluarga = await Keluarga.findOne({ email: email });
+      const tokenRT = keluarga.tokenRT
+      const rt = await Rt.findOne({ _id: tokenRT });
 
       if (keluarga) {
         res.status(200).json({
           message: 'Data Kepala Keluarga Found!',
           kepalaKeluarga: keluarga,
+          RT : rt,
         });
       } else {
         res.status(404).json({ message: 'Data Kepala Keluarga not found!' });
+      }
+    }else{
+      const rt = await Rt.findOne({email: email})
+
+      if(rt){
+        res.status(200).json({
+          message: 'Data Akun RT Found!',
+          RT : rt,
+        });
+      }else{
+        res.status(404).json({ message: 'Data Akun RT not found!' });
       }
     }
   } catch (error) {
