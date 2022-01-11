@@ -31,10 +31,10 @@ exports.getVaksin = async (req, res, next) => {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
       }
     } else {
-      const rt = await Rt.find({ email: email });
+      const rt = await Rt.findOne({ email: email });
       const rtId = rt._id;
 
-      const dataVaksin = await Vaksin.findOne({ anggotaKeluargaId: rtId });
+      const dataVaksin = await Vaksin.find({ keluargaId: rtId });
       const vaksinRT = await Vaksin.find({ tokenRT: rtId });
 
       if (dataVaksin.length) {
