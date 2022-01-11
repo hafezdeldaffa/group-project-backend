@@ -68,6 +68,11 @@ Schema Laporan
 }
 ```
 
+### Postman Documentation
+https://documenter.getpostman.com/view/11143202/UVRDHmQC
+
+### Heroku
+https://neimo-be.herokuapp.com/
 
 ### Installation
 

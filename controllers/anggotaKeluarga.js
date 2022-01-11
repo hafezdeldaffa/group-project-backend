@@ -153,6 +153,7 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
     if (role === 'Keluarga') {
       /* Find data keluarga by email */
       const keluarga = await Keluarga.findOne({ email: email });
+      const tokenRT = keluarga.tokenRT;
 
       /* Get id from keluarga  */
       const keluargaId = keluarga._id;
@@ -162,11 +163,14 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
         keluargaId: keluargaId,
       });
 
+      const anggotaRT = await AnggotaKeluarga.find({ tokenRT: tokenRT });
+
       if (anggotaKeluarga.length) {
         /* Send response */
         res.status(200).json({
           message: 'Anggota Keluarga Found',
           anggotaKeluarga: anggotaKeluarga,
+          anggotaRT: anggotaRT,
         });
       } else {
         /* Send response */
@@ -183,6 +187,57 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
       const anggotaKeluarga = await AnggotaKeluarga.find({
         keluargaId: rtId,
       });
+
+      const anggotaRT = await AnggotaKeluarga.find({ tokenRT: rtId });
+
+      if (anggotaKeluarga.length) {
+        /* Send response */
+        res.status(200).json({
+          message: 'Anggota Keluarga Found',
+          anggotaKeluarga: anggotaKeluarga,
+          anggotaRT: anggotaRT,
+        });
+      } else {
+        /* Send response */
+        res.status(404).json({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
+    }
+  } catch (error) {
+    /* Handling Errors */
+    errorHandling(error);
+    next(error);
+  }
+};
+
+exports.getAnggotaKeluargaById = async (req, res, next) => {
+  try {
+    /* Get data from jwt */
+    const { email, role } = req.user;
+    const { id } = req.params;
+
+    if (role === 'Keluarga') {
+      /* Find data keluarga by email */
+      const keluarga = await Keluarga.findOne({ email: email });
+
+      /* Find data keluarga by keluargaId */
+      const anggotaKeluarga = await AnggotaKeluarga.findById(id);
+
+      if (anggotaKeluarga) {
+        /* Send response */
+        res.status(200).json({
+          message: 'Anggota Keluarga Found',
+          anggotaKeluarga: anggotaKeluarga,
+        });
+      } else {
+        /* Send response */
+        res.status(404).json({ message: 'Anggota Keluarga Tidak Ditemukan' });
+      }
+    } else {
+      /* Find data keluarga by email */
+      const rt = await Rt.findOne({ email: email });
+
+      /* Find data keluarga by keluargaId */
+      const anggotaKeluarga = await AnggotaKeluarga.findById(id);
 
       if (anggotaKeluarga.length) {
         /* Send response */

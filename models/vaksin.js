@@ -21,7 +21,6 @@ const vaksinSchema = new Schema(
     },
     jenis: {
       type: String,
-      required: true,
     },
     dosis1: {
       type: String,

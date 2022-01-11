@@ -17,10 +17,15 @@ exports.getVaksin = async (req, res, next) => {
 
       const dataVaksin = await Vaksin.find({ keluargaId: keluargaId });
 
+      const tokenRT = keluarga.tokenRT;
+
+      const vaksinRT = await Vaksin.find({ tokenRT: tokenRT });
+
       if (dataVaksin.length) {
         res.status(200).json({
           message: 'Data Vaksin Keluarga Found',
-          dataVaksin: dataVaksin,
+          vaksinKeluarga: dataVaksin,
+          vaksinRT: vaksinRT,
         });
       } else {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
@@ -30,11 +35,14 @@ exports.getVaksin = async (req, res, next) => {
       const rtId = rt._id;
 
       const dataVaksin = await Vaksin.findOne({ anggotaKeluargaId: rtId });
+      const vaksinRT = await Vaksin.find({ tokenRT: rtId });
 
       if (dataVaksin.length) {
-        res
-          .status(200)
-          .json({ message: 'Data Vaksin RT Found', dataVaksin: dataVaksin });
+        res.status(200).json({
+          message: 'Data Vaksin RT Found',
+          vaksinKeluarga: dataVaksin,
+          vaksinRT: vaksinRT,
+        });
       } else {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
       }
@@ -62,6 +70,15 @@ exports.getVaksinRT = async (req, res, next) => {
       } else {
         res.status(404).json({ message: 'Data Vaksin Not Found' });
       }
+    } else {
+      const keluarga = await Keluarga.findOne({ email: email });
+      const tokenRT = keluarga.tokenRT;
+
+      const vaksin = await Vaksin.find({ tokenRT: tokenRT });
+
+      res
+        .status(200)
+        .json({ message: 'Data Vaksin Found', dataVaksin: vaksin });
     }
   } catch (error) {
     errorHandling(error);

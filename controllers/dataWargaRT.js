@@ -1,6 +1,7 @@
-const Keluarga = require("../models/keluarga")
-const RT = require("../models/rt")
+const Keluarga = require('../models/keluarga');
+const RT = require('../models/rt');
 const { errorHandling } = require('./errorHandling');
+
 
 exports.getWargaRT = async (req, res, next) =>{
    try {
@@ -30,3 +31,4 @@ exports.getWargaRT = async (req, res, next) =>{
         next(error);
    }
 }
+
