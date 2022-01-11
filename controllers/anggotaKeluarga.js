@@ -419,6 +419,7 @@ exports.getKepalaKeluarga = async (req, res, next) => {
       if(rt){
         res.status(200).json({
           message: 'Data Akun RT Found!',
+          kepalaKeluarga: rt,
           RT : rt,
         });
       }else{
