@@ -394,3 +394,25 @@ exports.getStatusCovid = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getKepalaKeluarga = async (req, res, next) => {
+  try {
+    const { email, role } = req.user;
+
+    if (role === 'Keluarga') {
+      const keluarga = await Keluarga.findOne({ email: email });
+
+      if (keluarga) {
+        res.status(200).json({
+          message: 'Data Kepala Keluarga Found!',
+          kepalaKeluarga: keluarga,
+        });
+      } else {
+        res.status(404).json({ message: 'Data Kepala Keluarga not found!' });
+      }
+    }
+  } catch (error) {
+    errorHandling(error);
+    next(error);
+  }
+};

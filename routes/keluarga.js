@@ -6,6 +6,7 @@ const {
   deleteAnggotaKeluarga,
   getStatusCovid,
   getAnggotaKeluargaById,
+  getKepalaKeluarga,
 } = require('../controllers/anggotaKeluarga');
 const router = express.Router();
 const { body } = require('express-validator');
@@ -40,5 +41,7 @@ router.get('/anggota-keluarga/:id', authenticateJWT, getAnggotaKeluargaById);
 router.delete('/anggota-keluarga/:id', authenticateJWT, deleteAnggotaKeluarga);
 
 router.get('/anggota-keluarga/status-covid', authenticateJWT, getStatusCovid);
+
+router.get('/profile', authenticateJWT, getKepalaKeluarga);
 
 module.exports = router;
