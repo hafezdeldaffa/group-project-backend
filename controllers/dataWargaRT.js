@@ -16,7 +16,14 @@ exports.getWargaRT = async (req, res, next) =>{
                 WargaRT : findWarga
             })
         }else{
-            res.json({message : "Anda tidak mempunyai akses terhadap data ini"})
+            const keluarga = await Keluarga.findOne({ email: email });
+            const tokenRT = keluarga.tokenRT;
+            const findWarga = await Keluarga.find({tokenRT : tokenRT})
+            
+            res.status(200).json({
+                message: "Berhasil Mendapatkan Data Warga di RT",
+                WargaRT : findWarga
+            })
         }
    } catch (error) {
         errorHandling(error);
