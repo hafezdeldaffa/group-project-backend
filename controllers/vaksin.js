@@ -37,7 +37,7 @@ exports.getVaksin = async (req, res, next) => {
       const dataVaksin = await Vaksin.find({ keluargaId: rtId });
       const vaksinRT = await Vaksin.find({ tokenRT: rtId });
 
-      if (dataVaksin.length) {
+      if (vaksinRT.length) {
         res.status(200).json({
           message: 'Data Vaksin RT Found',
           vaksinKeluarga: dataVaksin,
