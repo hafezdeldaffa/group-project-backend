@@ -53,6 +53,27 @@ exports.getVaksin = async (req, res, next) => {
   }
 };
 
+exports.getVakinByID = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const vaksinAnggota = await Vaksin.findOne({ _id: id })
+
+    if (vaksinAnggota) {
+      res.status(201).json({
+        message: "Berhasil Mengambil Data Vaksin By ID Anggota",
+        vaksin: vaksinAnggota,
+      })
+    } else {
+      res.status(404).json({ message: 'Data Vaksin By Id tidak ditemukan' });
+    }
+
+  } catch (error) {
+    errorHandling(error);
+    next(error);
+  }
+}
+
 exports.getVaksinRT = async (req, res, next) => {
   try {
     const { email, role } = req.user;
