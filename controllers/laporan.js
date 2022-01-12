@@ -61,19 +61,19 @@ exports.postLaporan = async (req, res, next) => {
       const keluargaId = keluarga._id;
       const tokenRT = keluarga.tokenRT;
 
-      perjalananDomestik === true ? 'Ya' : 'Tidak',
-        turisAsing === true ? 'Ya' : 'Tidak',
-        kontakPositif === true ? 'Ya' : 'Tidak',
-        demam === true ? 'Ya' : 'Tidak',
-        batuk === true ? 'Ya' : 'Tidak',
-        nyeriTenggorokan === true ? 'Ya' : 'Tidak',
-        sesakNafas === true ? 'Ya' : 'Tidak',
-        batukPilek === true ? 'Ya' : 'Tidak',
-        diabetes === true ? 'Ya' : 'Tidak',
-        hipertensi === true ? 'Ya' : 'Tidak',
-        jantung === true ? 'Ya' : 'Tidak',
-        ginjal === true ? 'Ya' : 'Tidak',
-        asma === true ? 'Ya' : 'Tidak';
+      const perjalananDomestik = perjalananDomestik === true ? 'Ya' : 'Tidak';
+      const turisAsing = turisAsing === true ? 'Ya' : 'Tidak';
+      const kontakPositif = kontakPositif === true ? 'Ya' : 'Tidak';
+      const demam = demam === true ? 'Ya' : 'Tidak';
+      const batuk = batuk === true ? 'Ya' : 'Tidak';
+      const nyeriTenggorokan = nyeriTenggorokan === true ? 'Ya' : 'Tidak';
+      const sesakNafas = sesakNafas === true ? 'Ya' : 'Tidak';
+      const batukPilek = batukPilek === true ? 'Ya' : 'Tidak';
+      const diabetes = diabetes === true ? 'Ya' : 'Tidak';
+      const hipertensi = hipertensi === true ? 'Ya' : 'Tidak';
+      const jantung = jantung === true ? 'Ya' : 'Tidak';
+      const ginjal = ginjal === true ? 'Ya' : 'Tidak';
+      const asma = asma === true ? 'Ya' : 'Tidak';
 
       const newLaporan = Laporan({
         tanggal: tanggal,
