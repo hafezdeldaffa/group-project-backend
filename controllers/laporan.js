@@ -61,50 +61,19 @@ exports.postLaporan = async (req, res, next) => {
       const keluargaId = keluarga._id;
       const tokenRT = keluarga.tokenRT;
 
-      if (
-        (anggotaId,
-        perjalananDomestik,
-        turisAsing,
-        kontakPositif,
-        demam,
-        batuk,
-        nyeriTenggorokan,
-        sesakNafas,
-        batukPilek,
-        diabetes,
-        hipertensi,
-        jantung,
-        ginjal,
-        asma)
-      ) {
-        (perjalananDomestik = 'Ya'),
-          (turisAsing = 'Ya'),
-          (kontakPositif = 'Ya'),
-          (demam = 'Ya'),
-          (batuk = 'Ya'),
-          (nyeriTenggorokan = 'Ya'),
-          (sesakNafas = 'Ya'),
-          (batukPilek = 'Ya'),
-          (diabetes = 'Ya'),
-          (hipertensi = 'Ya'),
-          (jantung = 'Ya'),
-          (ginjal = 'Ya'),
-          (asma = 'Ya');
-      } else {
-        (perjalananDomestik = 'Tidak'),
-          (turisAsing = 'Tidak'),
-          (kontakPositif = 'Tidak'),
-          (demam = 'Tidak'),
-          (batuk = 'Tidak'),
-          (nyeriTenggorokan = 'Tidak'),
-          (sesakNafas = 'Tidak'),
-          (batukPilek = 'Tidak'),
-          (diabetes = 'Tidak'),
-          (hipertensi = 'Tidak'),
-          (jantung = 'Tidak'),
-          (ginjal = 'Tidak'),
-          (asma = 'Tidak');
-      }
+      perjalananDomestik === 'true' ? 'Ya' : 'Tidak',
+        turisAsing === 'true' ? 'Ya' : 'Tidak',
+        kontakPositif === 'true' ? 'Ya' : 'Tidak',
+        demam === 'true' ? 'Ya' : 'Tidak',
+        batuk === 'true' ? 'Ya' : 'Tidak',
+        nyeriTenggorokan === 'true' ? 'Ya' : 'Tidak',
+        sesakNafas === 'true' ? 'Ya' : 'Tidak',
+        batukPilek === 'true' ? 'Ya' : 'Tidak',
+        diabetes === 'true' ? 'Ya' : 'Tidak',
+        hipertensi === 'true' ? 'Ya' : 'Tidak',
+        jantung === 'true' ? 'Ya' : 'Tidak',
+        ginjal === 'true' ? 'Ya' : 'Tidak',
+        asma === 'true' ? 'Ya' : 'Tidak';
 
       const newLaporan = Laporan({
         tanggal: tanggal,
