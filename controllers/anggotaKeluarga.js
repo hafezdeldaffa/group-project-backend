@@ -165,7 +165,7 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
 
       const anggotaRT = await AnggotaKeluarga.find({ tokenRT: tokenRT });
 
-      if (anggotaKeluarga.length) {
+      if (anggotaKeluarga) {
         /* Send response */
         res.status(200).json({
           message: 'Anggota Keluarga Found',
@@ -190,7 +190,7 @@ exports.getAnggotaKeluarga = async (req, res, next) => {
 
       const anggotaRT = await AnggotaKeluarga.find({ tokenRT: rtId });
 
-      if (anggotaKeluarga.length) {
+      if (anggotaKeluarga) {
         /* Send response */
         res.status(200).json({
           message: 'Anggota Keluarga Found',

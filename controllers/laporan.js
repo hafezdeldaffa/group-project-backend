@@ -16,17 +16,20 @@ exports.getLaporan = async (req, res, next) =>{
         if(role === "Keluarga"){
             const findKeluarga = await Keluarga.findOne({email: req.user.email})
             const findLaporan = await Laporan.find({keluargaId : findKeluarga._id})
-
+            const findLaporanRT = await Laporan.find({tokenRT : findKeluarga.tokenRT})
             res.status(200).json({
                 message : "Berhasil Mengambil data Laporan di keluarga",
-                Laporan : findLaporan
+                LaporanKeluarga : findLaporan,
+                LaporanRT: findLaporanRT,
             })
         }else{
             const findRT = await Rt.findOne({email: req.user.email})
-            const findLaporan = await Laporan.find({tokenRT : findRT._id})
+            const findLaporan = await Laporan.find({keluargaId : findRT._id})
+            const findLaporanRT = await Laporan.find({tokenRT : findRT._id})
             res.status(200).json({
                 message : "Berhasil Mengambil data Laporan di RT",
-                Laporan : findLaporan
+                LaporanKeluarga : findLaporan,
+                LaporanRT : findLaporanRT,
             })
         }
     } catch (error) {
