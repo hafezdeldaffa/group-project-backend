@@ -61,20 +61,6 @@ exports.postLaporan = async (req, res, next) => {
       const keluargaId = keluarga._id;
       const tokenRT = keluarga.tokenRT;
 
-      const perjalananDomestik = perjalananDomestik === true ? 'Ya' : 'Tidak';
-      const turisAsing = turisAsing === true ? 'Ya' : 'Tidak';
-      const kontakPositif = kontakPositif === true ? 'Ya' : 'Tidak';
-      const demam = demam === true ? 'Ya' : 'Tidak';
-      const batuk = batuk === true ? 'Ya' : 'Tidak';
-      const nyeriTenggorokan = nyeriTenggorokan === true ? 'Ya' : 'Tidak';
-      const sesakNafas = sesakNafas === true ? 'Ya' : 'Tidak';
-      const batukPilek = batukPilek === true ? 'Ya' : 'Tidak';
-      const diabetes = diabetes === true ? 'Ya' : 'Tidak';
-      const hipertensi = hipertensi === true ? 'Ya' : 'Tidak';
-      const jantung = jantung === true ? 'Ya' : 'Tidak';
-      const ginjal = ginjal === true ? 'Ya' : 'Tidak';
-      const asma = asma === true ? 'Ya' : 'Tidak';
-
       const newLaporan = Laporan({
         tanggal: tanggal,
         anggotaId: anggotaId,
