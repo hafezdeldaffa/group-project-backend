@@ -57,7 +57,7 @@ exports.getVaksinByID = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const vaksinAnggota = await Vaksin.findOne({ _id: id });
+    const vaksinAnggota = await Vaksin.findOne({ anggotaKeluargaId: id });
 
     if (vaksinAnggota) {
       res.status(201).json({
