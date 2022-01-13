@@ -4,7 +4,7 @@ const { authenticateJWT } = require('../controllers/auth');
 const {
   getVaksin,
   getVaksinRT,
-  getVakinByID,
+  getVaksinByID,
 } = require('../controllers/vaksin');
 
 router.get('/vaksin', authenticateJWT, getVaksin);
