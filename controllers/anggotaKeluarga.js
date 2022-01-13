@@ -315,6 +315,7 @@ exports.deleteAnggotaKeluarga = async (req, res, next) => {
     if (anggota) {
       /* Find data anggota by id and delete */
       await AnggotaKeluarga.findByIdAndDelete(id);
+      await Vaksin.findByIdAndDelete(id);
 
       /* Send Response */
       res.status(200).json({ message: 'Delete Anggota Keluarga Berhasil' });
@@ -401,28 +402,28 @@ exports.getKepalaKeluarga = async (req, res, next) => {
 
     if (role === 'Keluarga') {
       const keluarga = await Keluarga.findOne({ email: email });
-      const tokenRT = keluarga.tokenRT
+      const tokenRT = keluarga.tokenRT;
       const rt = await Rt.findOne({ _id: tokenRT });
 
       if (keluarga) {
         res.status(200).json({
           message: 'Data Kepala Keluarga Found!',
           kepalaKeluarga: keluarga,
-          RT : rt,
+          RT: rt,
         });
       } else {
         res.status(404).json({ message: 'Data Kepala Keluarga not found!' });
       }
-    }else{
-      const rt = await Rt.findOne({email: email})
+    } else {
+      const rt = await Rt.findOne({ email: email });
 
-      if(rt){
+      if (rt) {
         res.status(200).json({
           message: 'Data Akun RT Found!',
           kepalaKeluarga: rt,
-          RT : rt,
+          RT: rt,
         });
-      }else{
+      } else {
         res.status(404).json({ message: 'Data Akun RT not found!' });
       }
     }
