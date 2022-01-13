@@ -27,55 +27,55 @@ const LaporanSchema = new Schema(
       required: true,
     },
     perjalananDomestik: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     turisAsing: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     kontakPositif: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     demam: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     batuk: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     nyeriTenggorokan: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     sesakNafas: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     batukPilek: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     diabetes: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     hipertensi: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     jantung: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     ginjal: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     asma: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     catatanTambahan: {

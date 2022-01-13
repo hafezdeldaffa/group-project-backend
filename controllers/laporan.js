@@ -18,6 +18,7 @@ exports.getLaporan = async (req, res, next) => {
       const findLaporanRT = await Laporan.find({
         tokenRT: findKeluarga.tokenRT,
       });
+
       res.status(200).json({
         message: 'Berhasil Mengambil data Laporan di keluarga',
         LaporanKeluarga: findLaporan,
