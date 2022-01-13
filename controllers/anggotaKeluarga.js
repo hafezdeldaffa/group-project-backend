@@ -268,7 +268,7 @@ exports.putAnggotaKeluarga = async (req, res, next) => {
     }
 
     /* Get data from request body */
-    const { nama, role, statusCovid } = req.body;
+    const { nama, role, dosis1, dosis2, statusCovid } = req.body;
 
     /* Get id from request params */
     const { id } = req.params;
@@ -279,6 +279,13 @@ exports.putAnggotaKeluarga = async (req, res, next) => {
       role: role,
       statusCovid: statusCovid,
     };
+
+    const newVaksin = {
+      dosis1: dosis1,
+      dosis2: dosis2,
+    };
+
+    await Vaksin.findOneAndUpdate({ anggotaKeluargaId: id }, newVaksin);
 
     /* Find by id and Update to db */
     const updatedAnggota = await AnggotaKeluarga.findByIdAndUpdate(
