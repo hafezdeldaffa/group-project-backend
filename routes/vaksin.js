@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateJWT } = require('../controllers/auth');
-const { getVaksin, getVaksinRT, getVakinByID, deleteVaksinByID } = require('../controllers/vaksin');
+const { getVaksin, getVaksinRT, getVaksinByID, deleteVaksinByID } = require('../controllers/vaksin');
 
 
 router.get('/vaksin', authenticateJWT, getVaksin);
