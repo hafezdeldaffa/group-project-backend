@@ -111,7 +111,7 @@ exports.deleteVaksinByID = async (req,res, next) =>{
     
   try {
       const id = req.params.id
-      await Vaksin.deleteOne({_id: id})
+      await Vaksin.deleteOne({anggotaKeluargaId: id})
       res.json({
           message : "Berhasil Menghapus data Vaksin"
       })
