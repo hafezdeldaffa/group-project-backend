@@ -106,3 +106,19 @@ exports.getVaksinRT = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.deleteVaksinByID = async (req,res, next) =>{
+    
+  try {
+      const id = req.params.id
+      await Vaksin.deleteOne({_id: id})
+      res.json({
+          message : "Berhasil Menghapus data Vaksin"
+      })
+      
+  } catch (error) {
+      errorHandling(error);
+      next(error);
+  }
+}
