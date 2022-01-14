@@ -14,6 +14,7 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.2",
+    "mongoose-reverse-populate-v2": "^1.2.4",
     "morgan": "~1.9.1"
   },
   "devDependencies": {
